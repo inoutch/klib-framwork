@@ -1,4 +1,7 @@
 allprojects {
+    version "0.0.1"
+    group "inoutch"
+
     buildscript {
         ext.kotlin_version = "1.3.11"
         ext.konan_version = "1.1.0"
@@ -8,11 +11,11 @@ allprojects {
             google()
         }
     }
-}
 
-repositories {
-    mavenCentral()
-    google()
+    repositories {
+        mavenCentral()
+        google()
+    }
 }
 
 task wrapper(type: Wrapper) {
