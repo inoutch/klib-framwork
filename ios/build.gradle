@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "org.jetbrains.kotlin.platform.native"
+apply plugin: "maven-publish"
+
+components.main {
+    targets = ["ios_arm64"]
+    outputKinds = [KLIBRARY]
+
+    pom {
+        withXml {
+            def root = asNode()
+            root.appendNode("name", "klib-framwork-ios")
+            root.appendNode("description", "kotlin-framwork for ios")
+        }
+    }
+}
+
+sourceSets.main {
+    kotlin.srcDirs += "src/main/kotlin"
+}
+
+dependencies {
+    expectedBy project(":common")
+}

@@ -1,0 +1,3 @@
+interface Func {
+    fun run()
+}

@@ -1,0 +1,33 @@
+buildscript {
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "kotlin-platform-jvm"
+apply plugin: "maven"
+
+processResources {
+    from "../common/src/main/resources"
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    expectedBy project(":common")
+}
+
+repositories {
+    jcenter()
+}
+
+def repo = new File(rootDir, "repository")
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${repo.absolutePath}"
+            pom.version = "0.0.1"
+            pom.groupId = "inoutch"
+            pom.artifactId = "kotlin-framework-jvm"
+        }
+    }
+}

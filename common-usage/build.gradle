@@ -1,0 +1,16 @@
+buildscript {
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "org.jetbrains.kotlin.platform.common"
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    compile project(":common")
+}
+
+repositories {
+    jcenter()
+}

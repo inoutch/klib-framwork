@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "org.jetbrains.kotlin.platform.native"
+
+components.main {
+    targets = ["ios_arm64"]
+    outputKinds = [EXECUTABLE]
+}
+
+sourceSets.main {
+    kotlin.srcDirs += "src/main/kotlin"
+}
+
+dependencies {
+    implementation project(":ios")
+    expectedBy project(":common-usage")
+}
+
+task buildAppForXcode {
+    doLast {
+        if (!isCalledFromXcode()) {
+            throw new Exception("Please run 'buildAppForXcode' task with all necessary properties!")
+        }
+
+        println(sourceSets.main)
+        copy {
+            from file(getOutputBinary(getBuildTypeForXcode()))
+            into file(getBinaryLocationForXcode().parentFile)
+            rename {
+                getBinaryLocationForXcode().name
+            }
+        }
+    }
+}
+
+private String getOutputBinary(String type) {
+    "buid/exe/main/debug/ios-usage.kexe"
+}
+
+private boolean isCalledFromXcode() {
+    project.hasProperty("uikit.configuration.name") && project.hasProperty("uikit.binary.location")
+}
+
+private String getBuildTypeForXcode() {
+    project.properties["uikit.configuration.name"] as String
+}
+
+private File getBinaryLocationForXcode() {
+    file(project.properties["uikit.binary.location"])
+}

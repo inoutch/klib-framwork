@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        jogl_version = "2.3.2"
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "application"
+apply plugin: "kotlin-platform-jvm"
+
+mainClassName = "Main"
+defaultTasks "run"
+
+processResources {
+    from "../kotchan/src/main/resources"
+}
+
+dependencies {
+    compile project(":jvm")
+    expectedBy project(":common-usage")
+    
+    compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+repositories {
+    jcenter()
+    maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "Main")
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}

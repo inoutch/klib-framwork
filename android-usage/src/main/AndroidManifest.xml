@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.app">
+    <application android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                 android:label="android-usage">
+        <activity android:name="UsageActivity"
+                  android:label="usage-activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
