@@ -8,9 +8,9 @@
   <packaging>aar</packaging>
   <dependencies>
     <dependency>
-      <groupId>kotlin-framework</groupId>
+      <groupId>inoutch</groupId>
       <artifactId>kotlin-framework-common</artifactId>
-      <version>unspecified</version>
+      <version>0.0.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
