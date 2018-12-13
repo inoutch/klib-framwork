@@ -13,7 +13,7 @@ processResources {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile project(":common")
+    expectedBy project(":common")
 }
 
 repositories {
